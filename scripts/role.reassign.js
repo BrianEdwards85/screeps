@@ -1,14 +1,9 @@
+var util = require('util');
+
 var reassign = {
 
   run: function(creep) {
-    var targets = creep.room.find(FIND_STRUCTURES, {
-      filter: (structure) => {
-        return (structure.structureType == STRUCTURE_EXTENSION ||
-                structure.structureType == STRUCTURE_SPAWN ||
-                structure.structureType == STRUCTURE_TOWER) &&
-                structure.energy < structure.energyCapacity;
-        }
-      });
+    var targets = creep.room.find(FIND_STRUCTURES, { filter: util.nonfullStructureFilter });
 
     if(targets.length > 0){
       var harvester = _.filter(Game.creeps, (creep) => creep.memory.role == 'worker' && creep.memory.job == 'harvest');
