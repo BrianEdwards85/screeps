@@ -1,3 +1,5 @@
+var util = require('util');
+
 var roleBuilder = {
 
     /** @param {Creep} creep **/
@@ -7,7 +9,11 @@ var roleBuilder = {
             creep.memory.job = undefined;
             creep.say('Built');
         } else {
-            var target = creep.room.findClosestByPath(FIND_CONSTRUCTION_SITES);
+            var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES,{filter: util.extentionConstructionSiteFilter});
+            if(!target){
+              target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+            }
+
             if(target) {
                 if(creep.build(target) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);

@@ -6,8 +6,7 @@ var roleCollecter = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.carry.energy < creep.carryCapacity) {
-            var source = creep.room.findClosestByPath(FIND_SOURCES, {filter: util.sourcesWithEnergy});
-
+            var source = creep.pos.findClosestByPath(FIND_SOURCES, {filter: util.safeSourcesWithEnergy});
             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
             }
